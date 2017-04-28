@@ -1,3 +1,10 @@
+<?php
+require_once "../model/conecta.php";
+	
+	$PDO = db_connect();	
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -56,7 +63,7 @@
 		        </li>
 		      </ul>
 
-		      <form class="navbar-form navbar-right" action="#" method="POST">
+		      <form class="navbar-form navbar-right" action="login.php" method="POST">
 		      <label for="">Área Administrativa :</label>
 		        <div class="form-group">
 		          <input type="text" class="form-control" placeholder="Login">

@@ -1,23 +1,28 @@
 <?php
+require_once "../model/conecta.php";
+	
+	$PDO = db_connect();
 
-require "../model/conecta.php";
-require "../controller/function.php"; 
+	/*
+	require "../model/conecta.php";
+	require "../controller/function.php"; 
 
-	$nome = $_POST["nome"];
-	$email = $_POST["email"];
-	$senha = $_POST["senha"];
-	$senhaConf = $_POST["senhaConfirma"];
+		$nome = $_POST["nome"];
+		$email = $_POST["email"];
+		$senha = $_POST["senha"];
+		$senhaConf = $_POST["senhaConfirma"];
 
-	$sql = "INSERT INTO colaboradores(nome, email, senha, senhaConf) VALUES(:nome, :email, :senha, :senhaConfirma)";
+		$sql = "INSERT INTO colaboradores(nome, email, senha, senhaConf) VALUES(:nome, :email, :senha, :senhaConfirma)";
 
-	$stmt = $conn->prepare($sql);
-		
-	$stmt->bindValue( ':nome', $nome);
-	$stmt->bindValue( ':email', $email);
-	$stmt->bindValue( ':senha', $senha);
-	$stmt->bindValue( ':senhaConfirma', $senhaConf);
+		$stmt = $conn->prepare($sql);
+			
+		$stmt->bindValue( ':nome', $nome);
+		$stmt->bindValue( ':email', $email);
+		$stmt->bindValue( ':senha', $senha);
+		$stmt->bindValue( ':senhaConfirma', $senhaConf);
 
-	$result = $stmt->execute();
+		$result = $stmt->execute();
+	*/
 ?>
 
 <!DOCTYPE html>

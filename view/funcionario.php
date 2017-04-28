@@ -1,3 +1,10 @@
+<?php
+require_once "../model/conecta.php";
+	
+	$PDO = db_connect();	
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
