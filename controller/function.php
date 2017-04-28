@@ -1,27 +1,9 @@
 <?php
 
-	function inserir($a, $b){
+	function soma($x, $y){
 
-		$inserir=$conn->prepare("INSERT INTO colaboradores(nome, email)VALUES(:nome, :email )");
-	$inserir->bindValue(":nome",$a , ":email",$b);
-	$inserir->execute();
-
-		echo $a;
-
+		return $x + $y . "<br>";
 	}
-
-	function autentica($login, $pass){
-
-		
-
-		if ($login = ) {
-			# code...
-		}
-
-
-	}
-
-
 
 
 ?>

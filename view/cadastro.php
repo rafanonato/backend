@@ -1,27 +1,27 @@
 <?php
 
-include("../model/conecta.php");
+require "../model/conecta.php";
+require "../controller/function.php"; 
 
 	$nome = $_POST["nome"];
 	$email = $_POST["email"];
 	$senha = $_POST["senha"];
 	$senhaConf = $_POST["senhaConfirma"];
 
-
 	$sql = "INSERT INTO colaboradores(nome, email, senha, senhaConf) VALUES(:nome, :email, :senha, :senhaConfirma)";
+
 	$stmt = $conn->prepare($sql);
+		
 	$stmt->bindValue( ':nome', $nome);
 	$stmt->bindValue( ':email', $email);
 	$stmt->bindValue( ':senha', $senha);
 	$stmt->bindValue( ':senhaConfirma', $senhaConf);
 
 	$result = $stmt->execute();
-	 
-	
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,14 +41,6 @@ include("../model/conecta.php");
   </head>
   <body>
 <div class="container">
-
-	<div class="alert alert-warning alert-dismissible" role="alert">
-	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-	  	<span aria-hidden="true">&times;</span>
-	  </button>
-
-	  <strong><?php echo $stmt->rowCount(). " " . $nome . " Usuário Cadastrado"; ?></strong> Se vc ainda não tem cadastro realize abaixo!
-	</div>
 
 	<div class="row">
 		<nav class="navbar navbar-default">
@@ -100,6 +92,20 @@ include("../model/conecta.php");
 	</div>
 
 	<div class="row">
+	<div class="alert alert-warning alert-dismissible" role="alert">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	  	<span aria-hidden="true">&times;</span>
+	  </button>
+
+	  <p><?php 
+	  	if (empty($nome)) {
+	  		echo "Caso ainda não tem cadastro realize abaixo!";
+	  	}elseif ($nome) {
+	  		echo "Seu cadastro foi realizado com Sucesso! " . $nome;
+	  	}
+	   ?> </p>
+	</div>
+
 		<div class="jumbotron">
 		  <h2>Olá novo colaborador</h2>
 		  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo, consequatur. Officia minus tempora eaque consectetur numquam dignissimos porro, excepturi labore..</p>

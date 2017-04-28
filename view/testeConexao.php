@@ -1,19 +1,12 @@
 <?php
+	require "../model/conecta.php";
+	require "../controller/function.php"; 
 
-	include("../model/conecta.php");
+	$a = $_GET['v1'];
+	$b = $_GET['v2'];
 
 
-	$nome = 'Rafa';
-	$email = 'teste@teste';
-
-	$sql = "INSERT INTO colaboradores(nome, email) VALUES(:nome, :email)";
-	$stmt = $conn->prepare( $sql );
-	$stmt->bindParam( ':nome', $nome );
-	$stmt->bindParam( ':site', $site );
-	 
-	$result = $stmt->execute();
-	 
-	echo $stmt->rowCount() . "linhas inseridas";
+	echo soma($a, $b);
 	
-	
+
 ?>
