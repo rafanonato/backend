@@ -1,0 +1,5 @@
+http://blog.ultimatephp.com.br/sistema-de-cadastro-php-mysql-pdo/
+http://blog.thiagobelem.net/o-que-e-o-mvc
+https://www.youtube.com/watch?v=dA-qDRc6nZA
+
+http://rogerdudler.github.io/git-guide/index.pt_BR.html
