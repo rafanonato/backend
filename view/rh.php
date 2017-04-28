@@ -3,6 +3,24 @@ require_once "../model/conecta.php";
 	
 	$PDO = db_connect();
 
+	// SQL para contar o total de registros
+	// A biblioteca PDO possui o método rowCount(), mas ele pode ser impreciso.
+	// É recomendável usar a função COUNT da SQL
+	// Veja o Exemplo 2 deste link: http://php.net/manual/pt_BR/pdostatement.rowcount.php
+	$sql_count = "SELECT COUNT(*) AS total FROM colaboradores ORDER BY id ASC";
+ 
+	// SQL para selecionar os registros
+	$sql = "SELECT id, nome FROM colaboradores ORDER BY id ASC";
+ 
+	// conta o toal de registros
+	$stmt_count = $PDO->prepare($sql_count);
+	$stmt_count->execute();
+	$total = $stmt_count->fetchColumn();
+	 
+	// seleciona os registros
+	$stmt = $PDO->prepare($sql);
+	$stmt->execute();	
+	
 ?>
 
 <!DOCTYPE html>
@@ -24,18 +42,16 @@ require_once "../model/conecta.php";
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
-
-
-<div class="container">
-
-	<div class="row">
+ 
+    <body>
+    	<div class="container">
+		<div class="row">
 		<nav class="navbar navbar-default">
 		  <div class="container-fluid">
-		    <!-- Brand and toggle get grouped for better mobile display -->
+		    
 		    <div class="navbar-header">
 
-			<a href="index.php"><img src="img/logo.png" class="img-responsive"></a>
+			 <a href="index.php"><img src="img/logo.png" class="img-responsive"></a>
 		    
 		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 		        <span class="sr-only">Toggle navigation</span>
@@ -45,10 +61,10 @@ require_once "../model/conecta.php";
 		      </button>
 		    </div>
 
-		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
-		        <li><a href="index.php">A EMPRESA</a></li>
+		        <li><a href="funcionario.php">A EMPRESA</a></li>
 		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">NOSSA ESTRUTURA <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
@@ -61,57 +77,64 @@ require_once "../model/conecta.php";
 		            <li><a href="#">One more separated link</a></li>
 		          </ul>
 		        </li>
+
 		      </ul>
 
-		      <form class="navbar-form navbar-right" action="#" method="POST">
-		      <label for="">Área Administrativa :</label>
-		        <div class="form-group">
-		          <input type="text" class="form-control" placeholder="Login">
-		          <input type="text" class="form-control" placeholder="Senha">
-		        </div>
-		        <button type="submit" class="btn btn-success">Acessar</button>
-		      </form>
-		      
-		    </div><!-- /.navbar-collapse -->
-		  </div><!-- /.container-fluid -->
+		      <ul class="nav navbar-nav navbar-right">
+		       	<li><a href="cadastro.php">ADD USUÁRIOS</a></li>
+		       	<li><a href="#">LOGOUT</a></li>
+
+			</ul>
+		    </div>
+		  </div>
 		</nav>
 	</div>
 
-	<div class="row">
-		<div class="jumbotron">
-		  <h2>Oi! Este é um sistema de controle de <span style="color: red	;">Colaboradores</span> para uma empresas de médio e pequeno porte!</h2>
-		  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio dolore voluptates error placeat eveniet, saepe facilis totam eum, amet impedit necessitatibus nisi ad, ipsam. Veritatis possimus molestiae, aut doloremque sint.</p>
-		  
-		<p><a class="btn btn-danger btn-lg" href="cadastro.php" role="button">Novo Funcionário</a></p>
-	</div>
-
-	<div class="row">
-		<div class="col-sm-6 col-md-6">
-			<div class="thumbnail">
-				<img src="img/adm.png" class="img-responsive" alt="">
-				<h1 style="text-align: center;">RH</h1>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque impedit repudiandae accusamus, magnam minima.</p>
-				<a href="login.php"><button class="btn-block btn-success btn-lg" type="submit">Acessar</button></a>
-			</div>
-		</div>
-
-		<div class="col-sm-6 col-md-6">
-			<div class="thumbnail">
-				<img src="img/adm.png" class="img-responsive" alt="">
-				<h1 style="text-align: center;">Colaborador</h1>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque impedit repudiandae accusamus, magnam minima.</p>
-				<a href="login.php"><button class="btn-block btn-success btn-lg" type="submit">Acessar</button></a>
-			</div>
-		</div>
+    <div class="row">
+ 
+        <h2>Lista de Usuários</h2>
 		
+	<div class="alert alert-warning alert-dismissible" role="alert">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	  	<span aria-hidden="true">&times;</span>
+	  </button>
+	<strong>Total de usuários: <?php echo $total ?></strong> <span><strong><?php if ($total > 0): ?></strong></span>
 	</div>
 
-	<div class="row">
-		<p style="text-align: center;">Copyright | 2017 </p>
-	</div>
-	
-</div>
-
+ 
+        
+ 
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($user = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+                <tr>
+                    <td><?php echo $user['id'] ?></td>
+                    <td><?php echo $user['nome'] ?></td>
+                    <td>
+                        <a href="form-edit.php?id=<?php echo $user['id'] ?>">Editar</a>
+                        <a href="delete.php?id=<?php echo $user['id'] ?>" onclick="return confirm('Tem certeza de que deseja remover?');">Remover</a>
+                    </td>
+                </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+ 
+        <?php else: ?>
+ 
+        <p>Nenhum usuário registrado</p>
+ 
+        <?php endif; ?>
+    		</div>
+    	</div>
+         
+        
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../bootstrap/js/jquery1.2.4.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

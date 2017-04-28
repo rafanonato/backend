@@ -14,7 +14,7 @@ date_default_timezone_set('America/Sao_Paulo');
 // inclui o arquivo de funçõees
 require "../controller/function.php"; 
 
-/*
+
 	try
 	{
 	    $conn = new PDO( 'mysql:host=' . MYSQL_HOST . ';dbname=' . MYSQL_DB_NAME, MYSQL_USER, MYSQL_PASSWORD );
@@ -26,6 +26,6 @@ require "../controller/function.php";
 	    echo 'Erro ao conectar com o MySQL: ' . $e->getMessage();
 	}
 
-	*/
+	
 
 ?>

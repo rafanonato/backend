@@ -1,18 +1,14 @@
 <?php
-require_once "../model/conecta.php";
+require "../model/conecta.php";
 	
-	$PDO = db_connect();
+	//$PDO = db_connect();
+	
+	$nome = $_POST["nome"];
+	$email = $_POST["email"];
+	$senha = $_POST["senha"];
+	$senhaConf = $_POST["senhaConfirma"];
 
-	/*
-	require "../model/conecta.php";
-	require "../controller/function.php"; 
-
-		$nome = $_POST["nome"];
-		$email = $_POST["email"];
-		$senha = $_POST["senha"];
-		$senhaConf = $_POST["senhaConfirma"];
-
-		$sql = "INSERT INTO colaboradores(nome, email, senha, senhaConf) VALUES(:nome, :email, :senha, :senhaConfirma)";
+	$sql = "INSERT INTO colaboradores(nome, email, senha, senhaConf) VALUES(:nome, :email, :senha, :senhaConfirma)";
 
 		$stmt = $conn->prepare($sql);
 			
@@ -22,7 +18,6 @@ require_once "../model/conecta.php";
 		$stmt->bindValue( ':senhaConfirma', $senhaConf);
 
 		$result = $stmt->execute();
-	*/
 ?>
 
 <!DOCTYPE html>
